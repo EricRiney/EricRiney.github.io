@@ -1,0 +1,77 @@
+body {
+    padding-top: 50px;
+}
+body {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #333;
+    background-color: #fff;
+}
+
+.navbar-fixed-top {
+    top: 0;
+    border-width: 0 0 1px;
+}
+
+@media (min-width: 768px)
+.navbar-fixed-bottom, .navbar-fixed-top {
+    border-radius: 0;
+}
+.navbar-fixed-bottom, .navbar-fixed-top {
+    position: fixed;
+    right: 0;
+    left: 0;
+    z-index: 1030;
+}
+@media (min-width: 768px)
+.navbar {
+    border-radius: 4px;
+}
+
+.starter-template {
+   padding: 40px 15px;
+    text-align: center;
+   /* background-color: red;*/
+
+}
+
+.game-wrapper{
+	padding: 40px 15px;
+	text-align: center;
+	/*background-color: green; */
+}
+
+.button-wrapper{
+	padding: 40px 15px;
+	text-align: center;
+	/*background-color: white;*/
+}
+
+.label-wrapper{
+	padding: 40px 15px;
+	text-align: center;
+	/*background-color: gray; */
+}
+
+.list-wrapper{
+	padding: 40px 15px;
+	text-align: center;
+	/*background-color: gray; */
+}
+
+.list{
+    float:right;
+    position:relative;
+    left:-50%;
+    text-align:left;
+}
+.list li{
+    position:relative;
+    left:50%;
+}
+
+.special {
+	color: blue;
+}
+

@@ -88,12 +88,10 @@ app.controller("CalcController", ["$scope", "$http", "$localStorage", function($
     $scope.currencyChanged = function(money, cur) {
         if (cur != null && money != null) {
             $scope.currencyList = [];
-
             for (var i = 0; i < $scope.parsedList.length; i++) {
-                // console.log("cur = " + $scope.parsedList[i]['currency'] + " ,rate = " + $scope.parsedList[i]['rate']);
+                //console.log("cur = " + $scope.parsedList[i]['currency'] + " ,rate = " + $scope.parsedList[i]['rate']);
                 var tmpCur = $scope.parsedList[i]["currency"];
                 var rate = fx(money).from(cur).to(tmpCur).toFixed(4);
-
                 var currObject = {
                     "amount": money,
                     "base": cur,

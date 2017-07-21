@@ -1,15 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html ng-app="currencyCalc">
 <head>
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="yawn" content="">
+    <meta name="riney" content="">
 
     <title>Eric Riner </title>
+
+	  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/style.css"/>
+    <script src="js/jquery-2.1.4.min.js"></script>
+    <script src="js/lodash.min.js"></script>
+    <!--<script src="js/bootstrap.min.js"></script>-->
+    <script src="js/angular.min.js"></script>
+    <script src="js/ngStorage.min.js"></script>
+    <script src="js/angular-animate.min.js"></script>
+    <script src="js/money.min.js"></script>
+    <script src="js/app.js"></script>
 
     <!-- Bootstrap Core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -21,13 +31,7 @@
 
     <!-- Theme CSS -->
     <link href="css/grayscale.min.css" rel="stylesheet">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+    <script src="js/app.js"></script>
 
 </head>
 
@@ -59,7 +63,7 @@
                         <a class="page-scroll" href="#download">Contact</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#contact">Personal</a>
+                        <a class="page-scroll" href="#contact">Currency Calculatorgit </a>
                     </li>
                 </ul>
             </div>
@@ -115,9 +119,55 @@
 
     <!-- Contact Section -->
     <section id="contact" class="container content-section text-center">
-        <div class="row">
-
+        <div id="main" ng-controller="CalcController">
+        <div id="header" ng-class="(netConnectivity == 1 || netConnectivity == 3) ? 'labelInactive' : 'labelActive'" class="container">
+            <h2 class="text-center">Currency Calculator</h2>
+            <br>
+            <br>
         </div>
+        <div id="dateHeader" class="container">
+            <p ng-if="(netConnectivity == 1) || (netConnectivity == 3)" class="text-center">No Internet connection!</p>
+        </div>
+        <div class="container">
+        <div class="row">
+         <div id="leftcolumn" class="col-xs-6">
+            <div class="form-group">
+          		  <label for="currency1">Cash amount</label>
+          		  <input ng-disabled="(netConnectivity == 1) || (netConnectivity == 3)" type="number" class="form-control" id="currency1" placeholder="type amount" ng-maxlength="10" step="0.01" ng-change="currencyChanged(moneyAmount, selectedCur)" ng-model="moneyAmount" input-block input-block-length="validLength">
+            </div>
+       </div>
+       <div id="rightcolumn" class="col-xs-6">
+          <div class="row">
+             <label id="labelCash1" for="cash1">Currency:</label><br>
+             <div class="col-xs-9">
+               <select id="currencySelector" ng-disabled="(netConnectivity == 1) || (netConnectivity == 3)" class="form-control" ng-options="item.currency as item.currency for item in parsedList" name="category" id="cash1" ng-change="currencyChanged(moneyAmount, selectedCur)" ng-model="selectedCur" required></select>
+             </div>
+               <div class="col-xs-3">
+               <!--<img id="selectedFlag" ng-if="(netConnectivity == 0) || (netConnectivity == 2)" ng-src="images/flags/48/{{selectedCur}}.png"></img>-->
+             </div>
+          </div>
+      </div>
+      </div>
+    </div>
+    <div id="dateHeader" class="container-fluid" ng-show="currencyList[0]">
+      <p class="text-center">Exchange rates provided by Fixer.io</p>
+    </div>
+    <div id="infoText" ng-hide="currencyList[0]">
+    <div id="textSuccess" ng-if="(netConnectivity == 0) || (netConnectivity == 2)">Type in the cash amount and choose your currency to see the exchange rates!</div><br>
+    <div ng-if="(netConnectivity == 0) || (netConnectivity == 2)"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></div>
+    <div id="textError" ng-if="(netConnectivity == 1) || (netConnectivity == 3)">An error has occured!<br>Please check your Internet connection!</div><br>
+    <div ng-if="(netConnectivity == 1) || (netConnectivity == 3)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></div>
+    </div>
+    <div id="currencyList" ng-show="currencyList[0]">
+         <div ng-animate="'animate'" ng-repeat="curr in currencyList | myFormat: selectedCur" ng-class-even="'evenCurrencyStyle'" ng-class-odd="'oddCurrencyStyle'">
+               <!--<img id="rowFlag" ng-src="images/flags/48/{{curr.currency}}.png"></img>&nbsp-->
+               {{curr.rate}}
+            <b>{{curr.currency}}</b> =
+               {{curr.amount}}
+            <b>{{curr.base}}</b>
+        </div>
+    </div>
+</div>
     </section>
 
     <!-- Map Section -->
